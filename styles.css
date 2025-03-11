@@ -52,7 +52,7 @@ nav ul li a {
     position: relative;
     background: url('https://www.agricultura.sc.gov.br/wp-content/uploads/2023/08/Soja_Copercampos_-12-1.jpg') no-repeat center center/cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-    height: 200px;
+    height: 300px;
     color: white;
     padding: 100px 20px;
     text-align: center;
@@ -182,27 +182,51 @@ footer {
     animation: fadeIn 1s ease-in;
 }
 
-/* Media Queries para Responsividade */
+/* Menu Toggle (Ícone de Hambúrguer) */
+.menu-toggle {
+    display: none; /* Esconde o toggle em telas maiores */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+}
 
 /* Tablets e Telas Menores */
+/* Estilos para Telas Menores (Tablets e Celulares) */
 @media (max-width: 768px) {
-    header .container {
+    .menu-toggle {
+        display: flex; /* Exibe o toggle em telas menores */
+    }
+
+    .nav-list {
+        display: none; /* Esconde os itens do menu em telas menores */
         flex-direction: column;
+        width: 100%;
+        background-color: #4CAF50;
+        position: absolute;
+        top: 60px; /* Ajuste conforme a altura do header */
+        left: 0;
+    }
+
+    .nav-list.active {
+        display: flex; /* Exibe os itens do menu quando o toggle é clicado */
+    }
+
+    .nav-list li {
+        margin: 10px 0;
         text-align: center;
     }
 
-    nav ul {
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-    }
-
     .hero {
-        height: 150px;
+        height: 250px;
         padding: 50px 20px;
+        margin-top: 5%;
     }
 
     .hero h2 {
@@ -222,11 +246,11 @@ footer {
     }
 }
 
-/* Celulares */
 @media (max-width: 480px) {
     .hero {
         height: 100px;
         padding: 30px 20px;
+        height: 200px;
     }
 
     .hero h2 {
