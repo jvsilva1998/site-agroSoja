@@ -16,6 +16,16 @@ header {
     padding: 10px 0;
     z-index: 1000; /* Garante que o header fique acima de outros elementos */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra para destacar o header */
+    animation: fadeInHeader 1s ease-in;
+}
+
+@keyframes fadeInHeader {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 header .container {
@@ -38,15 +48,36 @@ nav ul {
     display: flex;
 }
 
-nav ul li {
-    margin-left: 20px;
-}
-
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px; /* Espaço para o sublinhado */
+    transition: color 0.3s ease;
+    margin-left: 20px;
 }
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b; /* Muda a cor do texto no hover */
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Exibe o sublinhado */
+}
+
 
 .hero {
     position: relative;
@@ -94,6 +125,12 @@ nav ul li a {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: #45a049; /* Muda a cor no hover */
+    transform: translateY(-5px); /* Levanta o botão */
 }
 
 .products {
@@ -120,12 +157,40 @@ nav ul li a {
     width: 30%;
     text-align: center;
     margin-bottom: 20px;
+    opacity: 0; /* Começa invisível */
+    animation: fadeIn 1s forwards; /* Animação de fade-in */
+}
+
+.product:nth-child(1) {
+    animation-delay: 0.3s; /* Cada produto aparece com atraso diferente */
+}
+
+.product:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.product:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .product img {
     height: 300px;
     max-width: 100%;
     border-radius: 10px;
+    transition: transform 0.3s ease; /* Transição suave */
+}
+
+.product:hover img {
+    transform: scale(1.1); /* Aumenta a imagem quando o mouse está sobre ela */
 }
 
 .contact {
@@ -194,10 +259,22 @@ footer {
     height: 3px;
     background-color: white;
     margin: 4px 0;
-    transition: 0.4s;
+    transition: transform 0.5s, opacity 0.3s; /* Transição suave */
+
 }
 
-/* Tablets e Telas Menores */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translateY(8px); /* Rotaciona a primeira barra */
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0; /* Torna a barra do meio invisível */
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px); /* Rotaciona a terceira barra */
+}
+
 /* Estilos para Telas Menores (Tablets e Celulares) */
 @media (max-width: 768px) {
     .menu-toggle {
@@ -205,17 +282,22 @@ footer {
     }
 
     .nav-list {
-        display: none; /* Esconde os itens do menu em telas menores */
+        display: none;
         flex-direction: column;
         width: 100%;
         background-color: #4CAF50;
         position: absolute;
-        top: 60px; /* Ajuste conforme a altura do header */
+        top: 60px;
         left: 0;
+        transform: translateY(-20px); /* Começa deslocado para cima */
+        opacity: 0; /* Começa invisível */
+        transition: transform 0.3s ease, opacity 0.3s ease; /* Suaviza a animação */
     }
 
     .nav-list.active {
-        display: flex; /* Exibe os itens do menu quando o toggle é clicado */
+        display: flex;
+        transform: translateY(0); /* Desliza para baixo */
+        opacity: 1; /* Torna visível */
     }
 
     .nav-list li {
@@ -270,7 +352,7 @@ footer {
     }
 
     .product img {
-        height: 150px; /* Reduz ainda mais a altura das imagens */
+        height: 250px; /* Reduz ainda mais a altura das imagens */
     }
 
     .contact form {
